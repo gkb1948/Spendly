@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="privacy-section">
+    <div class="privacy-container">
+        <h1 class="privacy-title">Privacy Policy</h1>
+        <p class="privacy-updated">Last updated: May 26, 2026</p>
+
+        <div class="privacy-content">
+            <h2>1. Introduction</h2>
+            <p>Welcome to Spendly. We are committed to protecting your privacy and ensuring you have a positive
+                experience on our platform. This Privacy Policy explains how we collect, use, disclose, and safeguard
+                your information when you use our website and services.</p>
+
+            <h2>2. Information We Collect</h2>
+            <p>We collect information in the following ways:</p>
+            <ul>
+                <li><strong>Account Information:</strong> When you register, we collect your name, email address, phone
+                    number, and password.</li>
+                <li><strong>Expense Data:</strong> Information about your expenses, including amounts, categories,
+                    dates, and descriptions that you voluntarily enter.</li>
+                <li><strong>Usage Data:</strong> We automatically collect information about your interactions with our
+                    service, including page views, features used, and time spent.</li>
+                <li><strong>Device Information:</strong> We collect information about the device you use to access
+                    Spendly, including device type, operating system, and browser type.</li>
+                <li><strong>Cookies and Analytics:</strong> We use cookies and similar tracking technologies to enhance
+                    your experience and analyze usage patterns.</li>
+            </ul>
+
+            <h2>3. How We Use Your Data</h2>
+            <p>We use the information we collect for the following purposes:</p>
+            <ul>
+                <li>To provide, maintain, and improve our services</li>
+                <li>To verify your identity and prevent fraud or abuse</li>
+                <li>To communicate with you about your account and service updates</li>
+                <li>To analyze usage patterns and improve user experience</li>
+                <li>To comply with legal obligations and enforce our terms of service</li>
+                <li>To personalize your experience and provide relevant features</li>
+            </ul>
+
+            <h2>4. Data Security and Storage</h2>
+            <p>Your data security is important to us. We implement industry-standard security measures to protect your
+                personal information:</p>
+            <ul>
+                <li>All data is encrypted in transit using SSL/TLS encryption</li>
+                <li>Sensitive data is encrypted at rest in our secure databases</li>
+                <li>We follow the principle of least privilege for data access</li>
+                <li>Our servers are hosted in secure data centers with physical security measures</li>
+                <li>We conduct regular security audits and vulnerability assessments</li>
+            </ul>
+            <p>However, no method of transmission over the Internet is completely secure. While we strive to protect
+                your data, we cannot guarantee absolute security.</p>
+
+            <h2>5. Third-Party Services</h2>
+            <p>We may use third-party services for specific functions, including:</p>
+            <ul>
+                <li>Payment processing services (if applicable)</li>
+                <li>Email delivery services for notifications</li>
+                <li>Analytics platforms to understand usage patterns</li>
+                <li>Cloud hosting providers for data storage</li>
+            </ul>
+            <p>These third parties are contractually obligated to maintain the confidentiality and security of your data
+                and are only permitted to use it for the specific purposes outlined in their agreements with us.</p>
+
+            <h2>6. Data Retention</h2>
+            <p>We retain your personal information for as long as necessary to provide our services and fulfill the
+                purposes outlined in this Privacy Policy. You can request deletion of your account and associated data
+                at any time through your account settings or by contacting us directly.</p>
+
+            <h2>7. Your Privacy Rights</h2>
+            <p>Depending on your location, you may have the following rights:</p>
+            <ul>
+                <li>Right to access your personal data</li>
+                <li>Right to correct inaccurate data</li>
+                <li>Right to request deletion of your data</li>
+                <li>Right to restrict or object to processing</li>
+                <li>Right to data portability</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us using the information provided in the Contact Us
+                section below.</p>
+
+            <h2>8. Children's Privacy</h2>
+            <p>Spendly is not intended for individuals under the age of 18. We do not knowingly collect personal
+                information from children. If we become aware that we have collected information from a child without
+                parental consent, we will take steps to delete such information and terminate the child's account.</p>
+
+            <h2>9. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for other
+                operational, legal, or regulatory reasons. We will notify you of any material changes by posting the
+                updated policy on our website and updating the "Last updated" date at the top of this policy.</p>
+
+            <h2>10. Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or our privacy practices, please contact us at:</p>
+            <ul>
+                <li>Email: privacy@spendly.app</li>
+                <li>Support Page: Available through our website</li>
+            </ul>
+            <p>We will respond to your inquiry within 30 days of receipt.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .privacy-section {
+        padding: 4rem 2rem;
+        background: var(--paper);
+    }
+
+    .privacy-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .privacy-title {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        color: var(--ink);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.01em;
+    }
+
+    .privacy-updated {
+        color: var(--ink-muted);
+        font-size: 0.9rem;
+        margin-bottom: 3rem;
+    }
+
+    .privacy-content h2 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        color: var(--ink);
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        letter-spacing: -0.01em;
+    }
+
+    .privacy-content p {
+        color: var(--ink-soft);
+        line-height: 1.8;
+        margin-bottom: 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .privacy-content ul {
+        list-style: none;
+        padding-left: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .privacy-content ul li {
+        color: var(--ink-soft);
+        line-height: 1.8;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        position: relative;
+        padding-left: 1.25rem;
+    }
+
+    .privacy-content ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    .privacy-content strong {
+        color: var(--ink);
+        font-weight: 600;
+    }
+</style>
+
+{% endblock %}
