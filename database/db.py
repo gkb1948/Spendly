@@ -1,6 +1,6 @@
 import sqlite3
 import os
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 def get_db():
@@ -80,3 +80,40 @@ def seed_db():
 
     conn.commit()
     conn.close()
+
+
+def get_user_by_email(email):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+    user = cursor.fetchone()
+    conn.close()
+    return dict(user) if user else None
+
+
+def create_user(name, email, password):
+    if not name or not name.strip():
+        raise ValueError("Name is required")
+    if not email or "@" not in email:
+        raise ValueError("Valid email is required")
+    if not password or len(password) < 6:
+        raise ValueError("Password must be at least 6 characters")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        hashed_password = generate_password_hash(password)
+        cursor.execute(
+            "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+            (name.strip(), email, hashed_password)
+        )
+        conn.commit()
+        user_id = cursor.lastrowid
+    except sqlite3.IntegrityError:
+        conn.close()
+        raise ValueError("Email already registered")
+    finally:
+        conn.close()
+
+    return user_id

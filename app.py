@@ -1,7 +1,8 @@
-from flask import Flask, render_template
-from database.db import get_db, init_db, seed_db
+from flask import Flask, render_template, session, redirect, request, abort, url_for
+from database.db import get_db, init_db, seed_db, create_user, get_user_by_email
 
 app = Flask(__name__)
+app.secret_key = "dev"
 
 # Initialize database on app startup
 with app.app_context():
@@ -23,9 +24,49 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/register", methods=["POST"])
+def register_post():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    error = None
+    try:
+        create_user(name, email, password)
+    except ValueError as e:
+        error = str(e)
+
+    if error:
+        return render_template("register.html", error=error)
+
+    return redirect(url_for("login"))
+
+
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+@app.route("/login", methods=["POST"])
+def login_post():
+    from werkzeug.security import check_password_hash
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    error = None
+    user = get_user_by_email(email) if email else None
+
+    if not user:
+        error = "Invalid email or password"
+    elif not check_password_hash(user["password_hash"], password):
+        error = "Invalid email or password"
+
+    if error:
+        return render_template("login.html", error=error)
+
+    session["user_id"] = user["id"]
+    return redirect(url_for("landing"))
 
 
 @app.route("/terms")
