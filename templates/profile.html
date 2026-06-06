@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Profile — Spendly{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="profile-container">
+        
+        <!-- SECTION 1: USER INFO CARD -->
+        <div class="profile-user-card">
+            <div class="avatar">{{ user.initials }}</div>
+            <div class="profile-user-info">
+                <h1 class="profile-user-name">{{ user.name }}</h1>
+                <p class="profile-user-email">{{ user.email }}</p>
+                <p class="profile-user-joined">Member since {{ user.joined }}</p>
+            </div>
+        </div>
+        
+        <!-- SECTION 2: SUMMARY STATS -->
+        <div class="profile-stats">
+            <div class="profile-stat-card">
+                <div class="stat-value">{{ stats.total_spent }}</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+            <div class="profile-stat-card">
+                <div class="stat-value">{{ stats.transaction_count }}</div>
+                <div class="stat-label">Transactions</div>
+            </div>
+            <div class="profile-stat-card">
+                <div class="stat-value">{{ stats.top_category }}</div>
+                <div class="stat-label">Top Category</div>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: TRANSACTION HISTORY TABLE -->
+        <div class="profile-transactions">
+            <h2 class="section-title">Recent Transactions</h2>
+            <table class="profile-transactions-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tx in transactions %}
+                    <tr>
+                        <td>{{ tx.date }}</td>
+                        <td>{{ tx.description }}</td>
+                        <td>
+                            <span class="badge badge-{{ tx.category|lower|replace(' ', '-') }}">
+                                {{ tx.category }}
+                            </span>
+                        </td>
+                        <td class="amount">{{ tx.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- SECTION 4: CATEGORY BREAKDOWN -->
+        <div class="profile-categories">
+            <h2 class="section-title">Spending by Category</h2>
+            {% for cat in categories %}
+            <div class="category-row">
+                <div class="category-info">
+                    <h3 class="category-name">{{ cat.name }}</h3>
+                    <p class="category-meta">{{ cat.count }} transaction(s)</p>
+                </div>
+                <div class="category-stats">
+                    <div class="category-amount">{{ cat.total }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: {{ cat.percentage }}%; background-color: var(--accent);"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</section>
+{% endblock %}

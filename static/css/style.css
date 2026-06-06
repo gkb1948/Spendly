@@ -631,35 +631,349 @@ a {
     color: var(--paper);
 }
 
-/* ------------------------------------------------------------------ */
-/* Responsive                                                          */
-/* ------------------------------------------------------------------ */
+/* ============================================
+   PROFILE PAGE STYLES
+   ============================================ */
 
-@media (max-width: 900px) {
-    .hero {
-        padding: 4rem 2rem 3rem;
-        gap: 2rem;
+/* Profile Page Container */
+.profile-section {
+    background-color: var(--paper);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 2rem;
+}
+
+.profile-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* Section Title */
+.section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+}
+
+.section-title:first-of-type {
+    margin-top: 0;
+}
+
+/* ========== SECTION 1: USER INFO CARD ========== */
+.profile-user-card {
+    background-color: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.profile-user-info {
+    flex: 1;
+}
+
+.profile-user-name {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.5rem 0;
+}
+
+.profile-user-email {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem 0;
+}
+
+.profile-user-joined {
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    margin: 0;
+}
+
+/* ========== SECTION 2: SUMMARY STATS ========== */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.profile-stat-card {
+    background-color: var(--paper-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ========== SECTION 3: TRANSACTION HISTORY TABLE ========== */
+.profile-transactions {
+    background-color: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    margin-bottom: 3rem;
+    overflow-x: auto;
+}
+
+.profile-transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.profile-transactions-table thead {
+    background-color: var(--paper-warm);
+    border-bottom: 2px solid var(--border);
+}
+
+.profile-transactions-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.profile-transactions-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--ink-soft);
+}
+
+.profile-transactions-table tbody tr:hover {
+    background-color: var(--paper-warm);
+}
+
+.profile-transactions-table td.amount {
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+}
+
+/* ========== CATEGORY BADGES ========== */
+.badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-food {
+    background-color: var(--accent-light);
+    color: var(--accent);
+}
+
+.badge-transport {
+    background-color: rgba(193, 127, 36, 0.15);
+    color: var(--accent-2);
+}
+
+.badge-bills {
+    background-color: rgba(192, 57, 43, 0.15);
+    color: var(--danger);
+}
+
+.badge-health {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+}
+
+.badge-entertainment {
+    background-color: rgba(155, 89, 182, 0.15);
+    color: #9b59b6;
+}
+
+.badge-shopping {
+    background-color: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+}
+
+.badge-other {
+    background-color: var(--border-soft);
+    color: var(--ink-muted);
+}
+
+/* ========== SECTION 4: CATEGORY BREAKDOWN ========== */
+.profile-categories {
+    background-color: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+}
+
+.category-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: center;
+}
+
+.category-row:last-child {
+    border-bottom: none;
+}
+
+.category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.category-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+}
+
+.category-meta {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin: 0;
+}
+
+.category-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-amount {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: right;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+/* ========== RESPONSIVE MEDIA QUERIES ========== */
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    .profile-section {
+        padding: 2rem 1rem;
     }
-
-    .hero-subtitle {
-        max-width: 100%;
+    
+    .profile-user-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
     }
-
-    .hero-actions {
-        justify-content: center;
-    }
-
-    .features-inner {
+    
+    .profile-stats {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .profile-transactions {
+        padding: 1rem;
+    }
+    
+    .profile-transactions-table {
+        font-size: 0.85rem;
+    }
+    
+    .profile-transactions-table th,
+    .profile-transactions-table td {
+        padding: 0.75rem;
+    }
+    
+    .category-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .category-amount {
+        text-align: left;
     }
 }
 
-@media (max-width: 600px) {
-    .nav-links a:not(.nav-cta) {
-        display: none;
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .profile-section {
+        padding: 1rem;
     }
-
-    .hero {
-        padding: 3rem 1rem 2rem;
+    
+    .avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+    
+    .profile-user-name {
+        font-size: 1.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.75rem;
+    }
+    
+    .profile-transactions-table {
+        font-size: 0.75rem;
+    }
+    
+    .profile-transactions-table th,
+    .profile-transactions-table td {
+        padding: 0.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
     }
 }

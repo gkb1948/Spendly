@@ -10,6 +10,11 @@ with app.app_context():
     seed_db()
 
 
+@app.context_processor
+def inject_user():
+    return {"user_id": session.get("user_id")}
+
+
 # ------------------------------------------------------------------ #
 # Routes                                                              #
 # ------------------------------------------------------------------ #
@@ -91,7 +96,121 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    # Authentication guard
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+    
+    # Build hardcoded context with all four sections
+    context = {
+        "user": {
+            "name": "Demo User",
+            "email": "demo@spendly.com",
+            "joined": "May 22, 2026",
+            "initials": "DU"
+        },
+        "stats": {
+            "total_spent": "₹393.24",
+            "transaction_count": 8,
+            "top_category": "Bills"
+        },
+        "transactions": [
+            {
+                "date": "May 20",
+                "description": "Misc",
+                "category": "Other",
+                "amount": "₹15.00"
+            },
+            {
+                "date": "May 15",
+                "description": "Clothes",
+                "category": "Shopping",
+                "amount": "₹89.99"
+            },
+            {
+                "date": "May 12",
+                "description": "Movie",
+                "category": "Entertainment",
+                "amount": "₹20.00"
+            },
+            {
+                "date": "May 09",
+                "description": "Pharmacy",
+                "category": "Health",
+                "amount": "₹35.75"
+            },
+            {
+                "date": "May 07",
+                "description": "Electricity",
+                "category": "Bills",
+                "amount": "₹150.00"
+            },
+            {
+                "date": "May 05",
+                "description": "Gas",
+                "category": "Transport",
+                "amount": "₹25.00"
+            },
+            {
+                "date": "May 03",
+                "description": "Lunch",
+                "category": "Food",
+                "amount": "₹12.99"
+            },
+            {
+                "date": "May 01",
+                "description": "Groceries",
+                "category": "Food",
+                "amount": "₹45.50"
+            }
+        ],
+        "categories": [
+            {
+                "name": "Bills",
+                "total": "₹150.00",
+                "count": 1,
+                "percentage": 38.1
+            },
+            {
+                "name": "Shopping",
+                "total": "₹89.99",
+                "count": 1,
+                "percentage": 22.9
+            },
+            {
+                "name": "Food",
+                "total": "₹58.49",
+                "count": 2,
+                "percentage": 14.9
+            },
+            {
+                "name": "Health",
+                "total": "₹35.75",
+                "count": 1,
+                "percentage": 9.1
+            },
+            {
+                "name": "Entertainment",
+                "total": "₹20.00",
+                "count": 1,
+                "percentage": 5.1
+            },
+            {
+                "name": "Transport",
+                "total": "₹25.00",
+                "count": 1,
+                "percentage": 6.4
+            },
+            {
+                "name": "Other",
+                "total": "₹15.00",
+                "count": 1,
+                "percentage": 3.8
+            }
+        ]
+    }
+    
+    return render_template("profile.html", **context)
 
 
 @app.route("/expenses/add")
