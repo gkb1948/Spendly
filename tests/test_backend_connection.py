@@ -134,3 +134,64 @@ class TestProfileRoute:
         assert "Shopping" in html
         assert "Food" in html
         assert "Health" in html
+        assert "type=\"date\"" in html or "type=date" in html
+
+
+# --- Unit tests: date filtering ---
+
+class TestDateFilter:
+    def test_filter_start_date(self):
+        user_id = _get_seed_user_id()
+        txs = get_recent_transactions(user_id, start_date="2026-05-10")
+        assert len(txs) == 3
+        for tx in txs:
+            assert tx["date"] >= "2026-05-10"
+
+    def test_filter_end_date(self):
+        user_id = _get_seed_user_id()
+        txs = get_recent_transactions(user_id, end_date="2026-05-10")
+        assert len(txs) == 5
+        for tx in txs:
+            assert tx["date"] <= "2026-05-10"
+
+    def test_filter_range(self):
+        user_id = _get_seed_user_id()
+        txs = get_recent_transactions(user_id, start_date="2026-05-05", end_date="2026-05-15")
+        assert len(txs) == 5
+        for tx in txs:
+            assert "2026-05-05" <= tx["date"] <= "2026-05-15"
+
+    def test_filter_stats_update(self):
+        user_id = _get_seed_user_id()
+        stats = get_summary_stats(user_id, start_date="2026-05-10")
+        assert stats["transaction_count"] == 3
+
+    def test_filter_no_results(self):
+        user_id = _get_seed_user_id()
+        txs = get_recent_transactions(user_id, start_date="2099-01-01")
+        assert txs == []
+        stats = get_summary_stats(user_id, start_date="2099-01-01")
+        assert stats["transaction_count"] == 0
+        assert stats["total_spent"] == "₹0.00"
+        cats = get_category_breakdown(user_id, start_date="2099-01-01")
+        assert cats == []
+
+    def test_filter_category_breakdown(self):
+        user_id = _get_seed_user_id()
+        cats = get_category_breakdown(user_id, start_date="2026-05-10")
+        assert len(cats) < 7
+        total_pct = sum(c["percentage"] for c in cats)
+        assert total_pct == 100
+
+    def test_filter_route_with_params(self, client):
+        resp = client.post("/login", data={
+            "email": "demo@spendly.com",
+            "password": "demo123",
+        }, follow_redirects=True)
+        assert resp.status_code == 200
+
+        resp = client.get("/profile?start_date=2026-05-10", follow_redirects=True)
+        assert resp.status_code == 200
+        html = resp.data.decode("utf-8")
+        assert "2026-05-10" in html
+    

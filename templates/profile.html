@@ -34,6 +34,32 @@
         <!-- SECTION 3: TRANSACTION HISTORY TABLE -->
         <div class="profile-transactions">
             <h2 class="section-title">Recent Transactions</h2>
+
+            <!-- Date Filter -->
+            <div class="date-filter">
+                <form method="GET" action="{{ url_for('profile') }}">
+                    <div class="date-filter-fields">
+                        <div class="date-field">
+                            <label for="start_date">From</label>
+                            <input type="date" id="start_date" name="start_date"{% if filter_start %} value="{{ filter_start }}"{% endif %}>
+                        </div>
+                        <div class="date-field">
+                            <label for="end_date">To</label>
+                            <input type="date" id="end_date" name="end_date"{% if filter_end %} value="{{ filter_end }}"{% endif %}>
+                        </div>
+                        <button type="submit" class="btn-primary">Filter</button>
+                        {% if filter_start or filter_end %}
+                        <a href="{{ url_for('profile') }}" class="btn-ghost">Clear</a>
+                        {% endif %}
+                    </div>
+                </form>
+                {% if filter_start or filter_end %}
+                <p class="filter-info">
+                    Showing transactions from {{ filter_start or 'the beginning' }} to {{ filter_end or 'today' }}
+                </p>
+                {% endif %}
+            </div>
+
             <table class="profile-transactions-table">
                 <thead>
                     <tr>

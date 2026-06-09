@@ -901,6 +901,57 @@ a {
     transition: width 0.3s ease;
 }
 
+/* ========== DATE FILTER ========== */
+.date-filter {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.date-filter-fields {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.date-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.date-field label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.date-field input[type="date"] {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.date-field input[type="date"]:focus {
+    border-color: var(--accent);
+}
+
+.filter-info {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-style: italic;
+}
+
 /* ========== RESPONSIVE MEDIA QUERIES ========== */
 
 /* Tablets (max-width: 768px) */
