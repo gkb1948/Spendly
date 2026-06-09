@@ -10,7 +10,7 @@ Step 1: Write Tests
 
 Invoke the spendly-test-writer subagent with the following context:
 
-    Spec file to base tests on: .claude/specs/$ARGUMENTS.md
+    Spec file to base tests on: .claude/specs/$ARGUMENTS.md''''''''hhhhggg
     Source files to read for structure:
         app.py
         database/ directory

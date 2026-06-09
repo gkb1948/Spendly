@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, render_template, session, redirect, request, abort, url_for
 from database.db import get_db, init_db, seed_db, create_user, get_user_by_email
 
@@ -13,6 +15,21 @@ with app.app_context():
 @app.context_processor
 def inject_user():
     return {"user_id": session.get("user_id")}
+
+
+# ------------------------------------------------------------------ #
+# Helpers                                                             #
+# ------------------------------------------------------------------ #
+
+def _parse_date_param(value):
+    """Validate a YYYY-MM-DD date string. Returns the string or None."""
+    if not value:
+        return None
+    try:
+        datetime.strptime(value, "%Y-%m-%d")
+        return value
+    except ValueError:
+        return None
 
 
 # ------------------------------------------------------------------ #
@@ -107,11 +124,16 @@ def profile():
         session.clear()
         return redirect(url_for("login"))
 
+    start_date = _parse_date_param(request.args.get("start_date"))
+    end_date = _parse_date_param(request.args.get("end_date"))
+
     context = {
         "user": user,
-        "stats": get_summary_stats(user_id),
-        "transactions": get_recent_transactions(user_id),
-        "categories": get_category_breakdown(user_id),
+        "stats": get_summary_stats(user_id, start_date=start_date, end_date=end_date),
+        "transactions": get_recent_transactions(user_id, start_date=start_date, end_date=end_date),
+        "categories": get_category_breakdown(user_id, start_date=start_date, end_date=end_date),
+        "filter_start": start_date,
+        "filter_end": end_date,
     }
     return render_template("profile.html", **context)
 
