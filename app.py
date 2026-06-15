@@ -134,8 +134,18 @@ def profile():
         "categories": get_category_breakdown(user_id, start_date=start_date, end_date=end_date),
         "filter_start": start_date,
         "filter_end": end_date,
+        "active_page": "profile",
     }
     return render_template("profile.html", **context)
+
+
+@app.route("/analytics")
+def analytics():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    return render_template("analytics.html", active_page="analytics")
 
 
 @app.route("/expenses/add")
