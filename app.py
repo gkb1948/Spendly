@@ -148,9 +148,59 @@ def analytics():
     return render_template("analytics.html", active_page="analytics")
 
 
-@app.route("/expenses/add")
+ALLOWED_CATEGORIES = ["Food", "Transport", "Bills", "Health", "Entertainment", "Shopping", "Other"]
+
+
+@app.route("/expenses/add", methods=["GET", "POST"])
 def add_expense():
-    return "Add expense — coming in Step 7"
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    if request.method == "GET":
+        return render_template("add_expense.html", active_page="add_expense")
+
+    amount = request.form.get("amount")
+    category = request.form.get("category")
+    date = request.form.get("date")
+    description = request.form.get("description")
+
+    error = None
+    from database.db import add_expense
+
+    try:
+        if not amount:
+            raise ValueError("Amount is required")
+        amount = float(amount)
+        if amount <= 0:
+            raise ValueError("Amount must be a positive number")
+    except (ValueError, TypeError):
+        error = "Amount must be a positive number"
+
+    if not category:
+        error = "Category is required"
+    elif category not in ALLOWED_CATEGORIES:
+        error = "Invalid category"
+
+    if not date:
+        error = "Date is required"
+    elif _parse_date_param(date) is None:
+        error = "Invalid date format"
+
+    if error:
+        form_data = {
+            "amount": request.form.get("amount"),
+            "category": request.form.get("category"),
+            "date": request.form.get("date"),
+            "description": request.form.get("description"),
+        }
+        return render_template("add_expense.html", error=error, form_data=form_data, active_page="add_expense")
+
+    if not description or not description.strip():
+        description = None
+
+    add_expense(user_id, amount, category, date, description)
+    return redirect(url_for("profile"))
 
 
 @app.route("/expenses/<int:id>/edit")
