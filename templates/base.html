@@ -25,6 +25,7 @@
             <div class="nav-links">
                 {% if user_id %}
                 <a href="{{ url_for('analytics') }}"{% if active_page == 'analytics' %} class="active"{% endif %}>Analytics</a>
+                <a href="{{ url_for('add_expense_route') }}"{% if active_page == 'add_expense' %} class="active"{% endif %}>Add Expense</a>
                 <a href="{{ url_for('profile') }}"{% if active_page == 'profile' %} class="active"{% endif %}>View Profile</a>
                 <a href="{{ url_for('logout') }}" class="nav-logout">Sign out</a>
                 {% else %}
