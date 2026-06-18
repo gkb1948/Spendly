@@ -852,6 +852,22 @@ a {
     text-decoration: underline;
 }
 
+.btn-delete {
+    font-size: 0.85rem;
+    color: var(--danger);
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+}
+
+.btn-delete:hover {
+    color: var(--ink);
+    text-decoration: underline;
+}
+
 /* ========== SECTION 4: CATEGORY BREAKDOWN ========== */
 .profile-categories {
     background-color: var(--paper-card);
