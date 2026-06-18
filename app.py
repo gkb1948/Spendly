@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from flask import Flask, render_template, session, redirect, request, abort, url_for
@@ -14,7 +15,7 @@ from database.queries import (
 )
 
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = os.environ.get("SECRET_KEY", "dev")
 
 # Initialize database on app startup
 with app.app_context():
@@ -275,4 +276,6 @@ def delete_expense(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get("PORT", 5001))
+    debug = os.environ.get("FLASK_ENV") == "development"
+    app.run(debug=debug, host="0.0.0.0", port=port)
