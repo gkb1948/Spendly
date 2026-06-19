@@ -8,3 +8,7 @@ __pycache__/
 .DS_Store
 .claude/plans/
 .opencode/
+stderr.txt
+stdout.txt
+opencode.jsonc
+
